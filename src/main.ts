@@ -1,4 +1,4 @@
-import { OrthographicCamera, Scene, Raycaster, WebGLRenderer, Vector2, Color, DirectionalLight, BoxGeometry, Mesh, MeshLambertMaterial, MathUtils, Object3D, Object3DEventMap, PlaneGeometry, CircleGeometry, GridHelper, Vector3 } from 'three';
+import { OrthographicCamera, Scene, Raycaster, WebGLRenderer, Vector2, Color, DirectionalLight, BoxGeometry, Mesh, MeshLambertMaterial, MathUtils, PlaneGeometry, CircleGeometry, GridHelper, Vector3 } from 'three';
 
 import Stats from 'three/addons/libs/stats.module.js';
 
@@ -6,7 +6,6 @@ let stats: Stats;
 let camera: OrthographicCamera, scene: Scene, raycaster: Raycaster, renderer: WebGLRenderer;
 
 let theta = 0;
-let INTERSECTED: (Mesh<BoxGeometry, MeshLambertMaterial> & { currentHex: number }) | null = null;
 let SELECTED: (Mesh<BoxGeometry, MeshLambertMaterial> & { currentHex: number }) | null = null;
 let SELECTED_OFFSET: Vector2 | null = null;
 
@@ -142,7 +141,7 @@ function makeBoard(scene: Scene) {
     { width: 12, height: 6, x: -20, y: -3, rotation: 0, color: 0xaaffaa },
   ];
 
-  terrainFootprints.forEach(({ width, height, x, y, rotation, color }) => {
+  terrainFootprints.forEach(({ width, height, x, y, rotation }) => {
     const footprint = new Mesh(
       new PlaneGeometry(width, height),
       new MeshLambertMaterial({ color: 0xFFDD54 })
@@ -196,7 +195,7 @@ function onPointerDown( event: MouseEvent ) {
   }
 }
 
-function onPointerUp( event: MouseEvent ) {
+function onPointerUp() {
   SELECTED = null;
 }
 
